@@ -2,6 +2,7 @@ import { Game } from "../model/game";
 
 export class ParserLog {
     private games = new Map();
+    private currentGame = 0;
 
     exec (line: string) {
         const reference = line.match(/^.{0,7}([a-z A-Z][^:]*)/);
@@ -14,12 +15,19 @@ export class ParserLog {
             return;
         }
 
-        Game[method]();
+        const output = Game[method](line);
+        if (method === 'newGame') {
+            this.games.set(++this.currentGame, output);
+        }
+    }
+
+    getGamesList () {
+        return this.games.forEach(item => console.log(item.hostname));
     }
 
     private methodMap (reference: string): string {
         const map = {
-            InitGame: 'getInstance',
+            InitGame: 'newGame',
             ClientConnect: 'addPlayer',
             ClientUserinfoChanged: 'updatePlayer',
             Kill: 'killPlayer'
