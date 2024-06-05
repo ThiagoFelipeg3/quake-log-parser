@@ -15,5 +15,7 @@ export class FileSystem {
         for await (const line of rl) {
             this.parser.exec(line);
         }
+
+        return this.parser;
     }
 }

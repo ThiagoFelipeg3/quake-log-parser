@@ -3,7 +3,8 @@ import { Game } from "../model/game";
 
 export class ParserLog {
     private games = new Map();
-    private currentGame = 0;
+    private currentGame: Game;
+    private currentGameId: number = 0;
 
     exec (line: string) {
         const reference = line.match(Regex.reference);
@@ -16,14 +17,29 @@ export class ParserLog {
             return;
         }
 
-        const output = Game[method](line);
         if (method === 'newGame') {
-            this.games.set(++this.currentGame, output);
+            this.currentGame = Game[method](line);
+            this.games.set(++this.currentGameId, this.currentGame);
+            return;
         }
+
+        this.currentGame[method](line);
     }
 
     getGamesList () {
-        return this.games.forEach(item => console.log(item.hostname));
+        let result: {[key: string]: {}} | any = {};
+
+        this.games.forEach((game, id) => {
+            result[`game_${id}`] = {
+                hostName: game.hostName,
+                version: game.version,
+                kills: game.kills,
+                Players: game.getPlayers()
+            }
+        });
+
+        console.log(result)
+        return result;
     }
 
     private methodMap (reference: string): string {
