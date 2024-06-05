@@ -1,3 +1,4 @@
+import { Regex } from "../enum/regex";
 import { Game } from "../model/game";
 
 export class ParserLog {
@@ -5,7 +6,7 @@ export class ParserLog {
     private currentGame = 0;
 
     exec (line: string) {
-        const reference = line.match(/^.{0,7}([a-z A-Z][^:]*)/);
+        const reference = line.match(Regex.reference);
         if (!reference) {
             return;
         }

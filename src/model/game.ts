@@ -1,3 +1,6 @@
+import { Regex } from "../enum/regex";
+import { Player } from "./player";
+
 export class Game {
     private players = new Map();
     public total_kills: number = 0;
@@ -5,8 +8,8 @@ export class Game {
     public version: string;
 
     constructor (line) {
-        this.hostname = line.match(/sv_hostname\\([a-z A-Z 0-9][^\\]*)/)[1]
-        this.version = line.match(/version\\(.*)\\protocol/)[1]
+        this.hostname = line.match(Regex.hostName)[1]
+        this.version = line.match(Regex.version)[1]
     }
 
     static newGame (line: string) {
