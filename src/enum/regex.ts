@@ -3,5 +3,6 @@ export enum Regex {
     version = /version\\(.*)\\protocol/,
     playerId = /Client(Connect|UserinfoChanged): ([0-9]*)/,
     playerName = /ClientUserinfoChanged: [0-9]* n\\(.*)\\t\\[0-9]+\\model/,
-    reference = /^.{0,7}([a-z A-Z][^:]*)/
+    reference = /^.{0,7}([a-z A-Z][^:]*)/,
+    kill = /Kill: ([0-9]+) ([0-9]+)/
 }
