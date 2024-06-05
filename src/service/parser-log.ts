@@ -38,7 +38,6 @@ export class ParserLog {
             }
         });
 
-        console.log(result)
         return result;
     }
 

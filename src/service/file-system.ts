@@ -6,7 +6,7 @@ export class FileSystem {
     constructor (private parser: ParserLog) {}
 
     async exec () {
-        const fileStream = fs.createReadStream('data/games-small.log');
+        const fileStream = fs.createReadStream('data/games.log');
         const rl = readline.createInterface({
             input: fileStream,
             crlfDelay: Infinity

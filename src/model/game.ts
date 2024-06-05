@@ -48,7 +48,7 @@ export class Game {
     getPlayers () {
         let players: {[key: string]: {}} | any = {};
         this.players.forEach(player => {
-            players[`name_${player.id}`] = {
+            players[player.name] = {
                 id: player.id,
                 name: player.name,
                 kills: {
